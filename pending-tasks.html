@@ -15,14 +15,14 @@
         <th>Title</th>
         <th>Date Requested</th>
         <th>Pending From</th>
-        <th>Due By</th> <!-- New column for Due By date -->
+        <th>Due By</th>
       </tr>
     </thead>
     <tbody></tbody>
   </table>
 
   <footer>
-    <p>Task Tracker © 2025</p>
+    <p>Task Tracker © 2024</p>
   </footer>
 
   <script>
@@ -45,31 +45,28 @@
 
           rows.forEach(row => {
             const [ticket, title, dateRequested, pendingFrom] = row.split(",").map(x => x.trim());
-            const requestedDate = new Date(dateRequested);
-            const daysLeft = Math.ceil((requestedDate - today) / (1000 * 60 * 60 * 24));
+            const dueDate = new Date(dateRequested);
+            const daysLeft = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
 
-            // Calculate "Due By" date (7 days from Date Requested)
-            const dueByDate = new Date(requestedDate);
-            dueByDate.setDate(dueByDate.getDate() + 7); // Add 7 days to the requested date
-            const dueByFormatted = dueByDate.toLocaleDateString();
-
-            // Only display tasks that are due within the next 7 days
             if (daysLeft <= 7) {
               const tr = document.createElement("tr");
 
-              // Apply flashing color based on days left
+              // Add classes for flashing based on the number of days left
               if (daysLeft >= 5) {
-                tr.classList.add("due-soon-red"); // Red flash for 5 or more days
+                tr.classList.add("due-soon-red"); // Flash red for tasks with 5 or more days left
               } else if (daysLeft >= 2 && daysLeft <= 4) {
-                tr.classList.add("due-soon-yellow"); // Yellow flash for 2-4 days
+                tr.classList.add("due-soon-yellow"); // Flash yellow for tasks with 2 to 4 days left
               }
+
+              const dueByDate = new Date(dueDate);
+              dueByDate.setDate(dueByDate.getDate() + 7); // Calculate the due by date (7 days after requested date)
 
               tr.innerHTML = `
                 <td>${ticket}</td>
                 <td>${title}</td>
                 <td>${dateRequested}</td>
                 <td>${pendingFrom}</td>
-                <td>${dueByFormatted}</td> <!-- Display the Due By date -->
+                <td>${dueByDate.toLocaleDateString()}</td> <!-- Display Due By Date -->
               `;
               tableBody.appendChild(tr);
             }

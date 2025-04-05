@@ -24,30 +24,28 @@ th {
 .due-soon-red {
   background-color: #ffcccc;
   animation: flash-red 3s infinite alternate;
-  color: #000; /* Default text color */
 }
 
 .due-soon-yellow {
   background-color: #ffffcc;
   animation: flash-yellow 3s infinite alternate;
-  color: #000; /* Default text color */
 }
 
 @keyframes flash-red {
-  from {
-    background-color: #ffffff;
+  0% {
+    background-color: #ffcccc;
   }
-  to {
+  100% {
     background-color: #ff0000;
   }
 }
 
 @keyframes flash-yellow {
-  from {
-    background-color: #ffffff;
+  0% {
+    background-color: #ffffcc;
   }
-  to {
-    background-color: #ffff00;
+  100% {
+    background-color: #ffcc00;
   }
 }
 

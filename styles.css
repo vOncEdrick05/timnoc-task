@@ -11,8 +11,8 @@ h2 {
 
 button#addRowBtn {
   position: absolute;
-  bottom: 20px; /* Distance from the bottom of the page */
-  left: 20px; /* Distance from the left of the page */
+  bottom: 20px;
+  left: 20px;
   padding: 8px 16px;
   background-color: #4CAF50;
   color: white;

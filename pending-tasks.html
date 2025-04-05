@@ -4,6 +4,95 @@
   <meta charset="UTF-8">
   <meta http-equiv="refresh" content="30">
   <title>Pending Tasks Viewer</title>
+</head>
+<body>
+  <h2>NOC Pending Tasks</h2>
+  <table id="taskTable">
+    <thead>
+      <tr>
+        <th>Ticket</th>
+        <th>Title</th>
+        <th>Date Requested</th>
+        <th>Pending From</th>
+        <th>Due By</th> <!-- New column for Due By date -->
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <footer>
+    <p>Task Tracker © 2024</p>
+  </footer>
+
+  <script>
+    const csvUrl = "https://raw.githubusercontent.com/vOncEdrick05/timnoc-task/main/NOC%20Task.csv";
+
+    // Function to fetch and display data
+    function fetchAndDisplayData() {
+      fetch(csvUrl)
+        .then(response => {
+          if (!response.ok) throw new Error("Network error");
+          return response.text();
+        })
+        .then(csvText => {
+          const rows = csvText.trim().split("\n").slice(1); // Remove header
+          const tableBody = document.querySelector("#taskTable tbody");
+          const today = new Date();
+
+          // Clear previous table content
+          tableBody.innerHTML = "";
+
+          rows.forEach(row => {
+            const [ticket, title, dateRequested, pendingFrom] = row.split(",").map(x => x.trim());
+            const requestedDate = new Date(dateRequested);
+            const daysLeft = Math.ceil((requestedDate - today) / (1000 * 60 * 60 * 24));
+
+            // Calculate "Due By" date (7 days from Date Requested)
+            const dueByDate = new Date(requestedDate);
+            dueByDate.setDate(dueByDate.getDate() + 7); // Add 7 days to the requested date
+            const dueByFormatted = dueByDate.toLocaleDateString();
+
+            // Only display tasks that are due within the next 7 days
+            if (daysLeft <= 7) {
+              const tr = document.createElement("tr");
+
+              // Apply flashing color based on days left
+              if (daysLeft >= 5 && daysLeft <= 7) {
+                tr.classList.add("due-soon-red"); // Red flash for 5-7 days
+              } else if (daysLeft >= 2 && daysLeft <= 4) {
+                tr.classList.add("due-soon-yellow"); // Yellow flash for 2-4 days
+              }
+
+              tr.innerHTML = `
+                <td>${ticket}</td>
+                <td>${title}</td>
+                <td>${dateRequested}</td>
+                <td>${pendingFrom}</td>
+                <td>${dueByFormatted}</td> <!-- Display the Due By date -->
+              `;
+              tableBody.appendChild(tr);
+            }
+          });
+        })
+        .catch(error => {
+          console.error("CSV fetch error:", error);
+        });
+    }
+
+    // Initial data load
+    fetchAndDisplayData();
+
+    // Re-fetch and update data every 30 seconds
+    setInterval(fetchAndDisplayData, 30000); // 30 seconds
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="30">
+  <title>Pending Tasks Viewer</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>

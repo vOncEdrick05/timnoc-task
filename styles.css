@@ -24,11 +24,16 @@ th {
 .due-soon {
   background-color: #ffcccc;
   animation: flash 3s infinite alternate;
+  color: #000; /* Default text color */
 }
 
 @keyframes flash {
-  from { background-color: white; }
-  to { background-color: #ff0000; }
+  from {
+    background-color: white;
+  }
+  to {
+    background-color: #ff0000;
+  }
 }
 
 footer {

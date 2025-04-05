@@ -5,7 +5,7 @@ body {
 }
 
 h2 {
-  text-align: center; /* Center the h2 text */
+  text-align: center;
 }
 
 table {
@@ -20,37 +20,29 @@ th, td {
 }
 
 th {
-  background-color: #87CEEB; /* Sky blue */
+  background-color: #87CEEB;
   color: #000;
   font-weight: bold;
 }
 
 .due-soon-red {
-  background-color: #ffcccc;
-  animation: flash-red 3s infinite alternate;
+  animation: flash-red 1s infinite alternate;
+  color: #fff;
 }
 
 .due-soon-yellow {
-  background-color: #ffffcc;
-  animation: flash-yellow 3s infinite alternate;
+  animation: flash-yellow 1s infinite alternate;
+  color: #000;
 }
 
 @keyframes flash-red {
-  0% {
-    background-color: #ffcccc;
-  }
-  100% {
-    background-color: #ff0000;
-  }
+  from { background-color: #fff5f5; }
+  to { background-color: #ff0000; }
 }
 
 @keyframes flash-yellow {
-  0% {
-    background-color: #ffffcc;
-  }
-  100% {
-    background-color: #ffcc00;
-  }
+  from { background-color: #ffffcc; }
+  to { background-color: #ffff00; }
 }
 
 footer {

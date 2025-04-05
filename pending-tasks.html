@@ -9,6 +9,8 @@
 <body>
   <h2>NOC Pending Tasks</h2>
 
+  <button id="addRowBtn">➕ Add Row</button>
+
   <table id="taskTable">
     <thead>
       <tr>
@@ -58,10 +60,10 @@
               }
 
               tr.innerHTML = `
-                <td>${ticket}</td>
-                <td>${title}</td>
-                <td>${dateRequested}</td>
-                <td>${pendingFrom}</td>
+                <td contenteditable="true">${ticket}</td>
+                <td contenteditable="true">${title}</td>
+                <td contenteditable="true">${dateRequested}</td>
+                <td contenteditable="true">${pendingFrom}</td>
                 <td>${dueByDate.toLocaleDateString()}</td>
               `;
               tableBody.appendChild(tr);
@@ -73,8 +75,26 @@
         });
     }
 
+    // Add new blank row
+    document.getElementById("addRowBtn").addEventListener("click", () => {
+      const tableBody = document.querySelector("#taskTable tbody");
+      const today = new Date().toISOString().split("T")[0];
+      const dueBy = new Date();
+      dueBy.setDate(dueBy.getDate() + 7);
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td contenteditable="true">New</td>
+        <td contenteditable="true">New Task</td>
+        <td contenteditable="true">${today}</td>
+        <td contenteditable="true">NOC</td>
+        <td>${dueBy.toLocaleDateString()}</td>
+      `;
+      tableBody.appendChild(tr);
+    });
+
     fetchAndDisplayData();
-    setInterval(fetchAndDisplayData, 30000); // Refresh every 30 seconds
+    setInterval(fetchAndDisplayData, 30000); // auto-refresh
   </script>
 </body>
 </html>

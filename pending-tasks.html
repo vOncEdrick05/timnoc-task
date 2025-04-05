@@ -53,6 +53,8 @@
 
               if (daysSinceRequested >= 4) {
                 tr.classList.add("due-soon-red");
+              } else if (daysSinceRequested >= 2 && daysSinceRequested <= 3) {
+                tr.classList.add("due-soon-yellow");
               }
 
               tr.innerHTML = `

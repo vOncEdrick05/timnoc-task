@@ -27,37 +27,46 @@
   <script>
     const csvUrl = "https://raw.githubusercontent.com/vOncEdrick05/timnoc-task/main/NOC%20Task.csv";
 
-    fetch(csvUrl)
-      .then(response => {
-        if (!response.ok) throw new Error("Network error");
-        return response.text();
-      })
-      .then(csvText => {
-        const rows = csvText.trim().split("\n").slice(1); // Remove header
-        const tableBody = document.querySelector("#taskTable tbody");
-        const today = new Date();
+    // Function to fetch and display data
+    function fetchAndDisplayData() {
+      fetch(csvUrl)
+        .then(response => {
+          if (!response.ok) throw new Error("Network error");
+          return response.text();
+        })
+        .then(csvText => {
+          const rows = csvText.trim().split("\n").slice(1); // Remove header
+          const tableBody = document.querySelector("#taskTable tbody");
+          const today = new Date();
 
-        rows.forEach(row => {
-          const [ticket, title, dateRequested, pendingFrom] = row.split(",").map(x => x.trim());
-          const dueDate = new Date(dateRequested);
-          const daysLeft = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
+          // Clear previous table content
+          tableBody.innerHTML = "";
 
-          if (daysLeft <= 7) {
-            const tr = document.createElement("tr");
-            if (daysLeft <= 3) tr.classList.add("due-soon");
-            tr.innerHTML = `
-              <td>${ticket}</td>
-              <td>${title}</td>
-              <td>${dateRequested}</td>
-              <td>${pendingFrom}</td>
-            `;
-            tableBody.appendChild(tr);
-          }
+          rows.forEach(row => {
+            const [ticket, title, dateRequested, pendingFrom] = row.split(",").map(x => x.trim());
+            const dueDate = new Date(dateRequested);
+            const daysLeft = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
+
+            if (daysLeft <= 7) {
+              const tr = document.createElement("tr");
+              if (daysLeft <= 3) tr.classList.add("due-soon");
+              tr.innerHTML = `
+                <td>${ticket}</td>
+                <td>${title}</td>
+                <td>${dateRequested}</td>
+                <td>${pendingFrom}</td>
+              `;
+              tableBody.appendChild(tr);
+            }
+          });
+        })
+        .catch(error => {
+          console.error("CSV fetch error:", error);
         });
-      })
-      .catch(error => {
-        console.error("CSV fetch error:", error);
-      });
+    }
+
+    // Initial load
+    fetchAndDisplayData();
 
     // JavaScript for automatic text color adjustment based on background color
     document.addEventListener("DOMContentLoaded", function () {
@@ -77,6 +86,9 @@
         }
       });
     });
+
+    // Re-fetch data every 30 seconds
+    setInterval(fetchAndDisplayData, 30000); // 30 seconds
   </script>
 </body>
 </html>

@@ -22,7 +22,7 @@
   </table>
 
   <footer>
-    <p>Task Tracker © 2025</p>
+    <p>Task Tracker © 2024</p>
   </footer>
 
   <script>
@@ -45,30 +45,28 @@
 
           rows.forEach(row => {
             const [ticket, title, dateRequested, pendingFrom] = row.split(",").map(x => x.trim());
-            const dueDate = new Date(dateRequested);
-            const daysLeft = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
+            const requestedDate = new Date(dateRequested);
+            const daysLeft = Math.ceil((requestedDate - today) / (1000 * 60 * 60 * 24));
 
-            const tr = document.createElement("tr");
+            // Calculate "Due By" date (7 days from Date Requested)
+            const dueByDate = new Date(requestedDate);
+            dueByDate.setDate(dueByDate.getDate() + 7); // Add 7 days to the requested date
+            const dueByFormatted = dueByDate.toLocaleDateString();
 
-            // Add flashing effect based on days left
-            if (daysLeft >= 2 && daysLeft <= 4) {
-              tr.classList.add("due-yellow");
-            } else if (daysLeft >= 5 && daysLeft <= 7) {
-              tr.classList.add("due-red");
+            // Only display tasks that are due within the next 7 days
+            if (daysLeft <= 7) {
+              const tr = document.createElement("tr");
+              if (daysLeft <= 3) tr.classList.add("due-soon");
+
+              tr.innerHTML = `
+                <td>${ticket}</td>
+                <td>${title}</td>
+                <td>${dateRequested}</td>
+                <td>${pendingFrom}</td>
+                <td>${dueByFormatted}</td> <!-- Display the Due By date -->
+              `;
+              tableBody.appendChild(tr);
             }
-
-            // Calculate "Due By" date (same as Date Requested)
-            const dueByDate = dueDate.toLocaleDateString();
-
-            // Add table row with new "Due By" column
-            tr.innerHTML = `
-              <td>${ticket}</td>
-              <td>${title}</td>
-              <td>${dateRequested}</td>
-              <td>${pendingFrom}</td>
-              <td>${dueByDate}</td> <!-- New Due By column -->
-            `;
-            tableBody.appendChild(tr);
           });
         })
         .catch(error => {

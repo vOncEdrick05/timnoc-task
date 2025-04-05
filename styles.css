@@ -2,7 +2,6 @@ body {
   font-family: Arial, sans-serif;
   padding: 20px;
   background-color: #fff;
-  text-align: center;
 }
 
 table {
@@ -25,30 +24,30 @@ th {
 .due-soon-red {
   background-color: #ffcccc;
   animation: flash-red 3s infinite alternate;
-  color: #000; /* Text color when flashing red */
+  color: #000; /* Default text color */
 }
 
 .due-soon-yellow {
-  background-color: #ffff99;
+  background-color: #ffffcc;
   animation: flash-yellow 3s infinite alternate;
-  color: #000; /* Text color when flashing yellow */
+  color: #000; /* Default text color */
 }
 
 @keyframes flash-red {
   from {
-    background-color: white;
+    background-color: #ffffff;
   }
   to {
-    background-color: #ff0000; /* Flash red */
+    background-color: #ff0000;
   }
 }
 
 @keyframes flash-yellow {
   from {
-    background-color: white;
+    background-color: #ffffff;
   }
   to {
-    background-color: #ffcc00; /* Flash yellow */
+    background-color: #ffff00;
   }
 }
 

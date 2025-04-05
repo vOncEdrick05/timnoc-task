@@ -15,14 +15,14 @@
         <th>Title</th>
         <th>Date Requested</th>
         <th>Pending From</th>
-        <th>Due By</th>
+        <th>Due By</th> <!-- Added due by date column -->
       </tr>
     </thead>
     <tbody></tbody>
   </table>
 
   <footer>
-    <p>Task Tracker © 2025</p>
+    <p>Task Tracker © 2024</p>
   </footer>
 
   <script>
@@ -58,9 +58,11 @@
                 tr.classList.add("due-soon-yellow"); // Flash yellow for tasks with 2 to 4 days left
               }
 
+              // Calculate due-by date (7 days after requested date)
               const dueByDate = new Date(dueDate);
-              dueByDate.setDate(dueByDate.getDate() + 7); // Calculate the due by date (7 days after requested date)
+              dueByDate.setDate(dueByDate.getDate() + 7);
 
+              // Add row to table with the due by date
               tr.innerHTML = `
                 <td>${ticket}</td>
                 <td>${title}</td>

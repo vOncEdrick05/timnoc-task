@@ -1,85 +1,38 @@
-/* Basic reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f7fc;
-  color: #333;
   padding: 20px;
+  background-color: #f9f9f9;
+  color: #333;
 }
 
-/* Header style */
-h1 {
-  font-size: 2em;
-  text-align: center;
-  color: #2d3e50;
+h2 {
   margin-bottom: 20px;
 }
 
-/* Table Styling */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
-  text-align: left;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
-  padding: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
 }
 
 th {
-  background-color: #4CAF50;
-  color: white;
-  text-transform: uppercase;
-}
-
-td {
-  background-color: #fff;
-}
-
-td.pending {
-  background-color: #f0ad4e;
-}
-
-td.due-soon {
-  background-color: #f44336;
-  animation: flash 1s infinite;
-}
-
-/* Flashing animation for near due tasks */
-@keyframes flash {
-  0% { background-color: #f44336; }
-  50% { background-color: #ff6347; }
-  100% { background-color: #f44336; }
-}
-
-/* Style for Pending Tasks */
-.pending {
-  color: #d9534f;
+  background-color: #eaeaea;
+  font-weight: bold;
 }
 
 .due-soon {
-  color: #ffffff;
+  background-color: #ffcccc;
+  animation: flash 1s infinite alternate;
 }
 
-tr:hover {
-  background-color: #f1f1f1;
-}
-
-.task-status {
-  text-align: center;
-}
-
-/* Add some space around the footer */
-footer {
-  margin-top: 30px;
-  text-align: center;
-  font-size: 0.9em;
-  color: #555;
+@keyframes flash {
+  from { background-color: #ffcccc; }
+  to { background-color: #ffecec; }
 }

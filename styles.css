@@ -42,18 +42,18 @@ td {
   font-size: 14px;
 }
 
-/* Flash from white to red */
+/* Flash from white to red slowly and smoothly */
 .due-soon {
-  animation: flash-red-white 1s infinite alternate;
+  animation: flash-red-white 2.5s infinite alternate ease-in-out;
 }
 
 @keyframes flash-red-white {
   from {
-    background-color: white;
+    background-color: #ffffff;
     color: #000;
   }
   to {
-    background-color: #e60000;
+    background-color: #cc0000;
     color: #fff;
   }
 }

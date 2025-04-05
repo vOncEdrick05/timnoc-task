@@ -29,61 +29,55 @@
     <p>Task Tracker © 2025</p>
   </footer>
 
-  <script>
-    // Fetch CSV file from the provided GitHub link
-    const csvUrl = 'https://raw.githubusercontent.com/vOncEdrick05/timnoc-task/refs/heads/main/NOC%20Task.csv';
+    <script>
+        // URL to the raw CSV file
+        const csvUrl = 'https://raw.githubusercontent.com/vOncEdrick05/TIMNOC/main/NOC%20Task.csv';
 
-    // Function to parse the CSV data
-    function parseCSV(csvData) {
-      const rows = csvData.split("\n").map(row => row.split(","));
-      return rows.slice(1); // Remove header row
-    }
+        // Fetch CSV and display data
+        fetch(csvUrl)
+            .then(response => response.text())
+            .then(csvData => {
+                const parsedData = parseCSV(csvData);
+                displayData(parsedData);
+            })
+            .catch(error => console.error('Error fetching the CSV file:', error));
 
-    // Function to populate the table with task data
-    function populateTable(tasks) {
-      const tableBody = document.querySelector("#tasksTable tbody");
+        // Function to parse CSV data into an array of objects
+        function parseCSV(csv) {
+            const rows = csv.split('\n');
+            const headers = rows[0].split(','); // Assuming CSV has headers in the first row
+            const data = [];
 
-      tasks.forEach(task => {
-        const row = document.createElement("tr");
-        
-        const ticketNumber = task[0];
-        const title = task[1];
-        const dateRequested = task[2];
-        const dueDate = task[3];
-        const status = task[4];
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].split(',');
+                if (cells.length === headers.length) {
+                    let row = {};
+                    for (let j = 0; j < headers.length; j++) {
+                        row[headers[j]] = cells[j];
+                    }
+                    data.push(row);
+                }
+            }
+            return data;
+        }
 
-        row.innerHTML = `
-          <td>${ticketNumber}</td>
-          <td>${title}</td>
-          <td>${dateRequested}</td>
-          <td>${dueDate}</td>
-          <td class="${getStatusClass(status)}">${status}</td>
-        `;
-        
-        tableBody.appendChild(row);
-      });
-    }
+        // Function to display the parsed data into an HTML table
+        function displayData(data) {
+            const tableBody = document.getElementById('task-table').getElementsByTagName('tbody')[0];
 
-    // Function to determine the class based on task status
-    function getStatusClass(status) {
-      if (status.toLowerCase() === 'pending') {
-        return 'pending';  // Assign "pending" class
-      } else if (status.toLowerCase() === 'due soon') {
-        return 'due-soon';  // Assign "due-soon" class
-      } else {
-        return ''; // Default class
-      }
-    }
+            data.forEach(task => {
+                const row = tableBody.insertRow();
+                const ticketCell = row.insertCell(0);
+                const titleCell = row.insertCell(1);
+                const dateCell = row.insertCell(2);
+                const pendingCell = row.insertCell(3);
 
-    // Fetch CSV data and populate the table
-    fetch(csvUrl)
-      .then(response => response.text())
-      .then(data => {
-        const tasks = parseCSV(data);
-        populateTable(tasks);
-      })
-      .catch(error => console.error('Error fetching CSV:', error));
-  </script>
-
+                ticketCell.textContent = task['Ticket Number'];
+                titleCell.textContent = task['Title'];
+                dateCell.textContent = task['Date Requested'];
+                pendingCell.textContent = task['Pending'];
+            });
+        }
+    </script>
 </body>
 </html>

@@ -2,6 +2,7 @@ body {
   font-family: Arial, sans-serif;
   padding: 20px;
   background-color: #fff;
+  position: relative; /* Allow absolute positioning inside the body */
 }
 
 h2 {
@@ -9,15 +10,15 @@ h2 {
 }
 
 button#addRowBtn {
-  display: block;
-  margin: 20px 0 10px 0; /* top, right, bottom, left */
+  position: absolute;
+  bottom: 20px; /* Distance from the bottom of the page */
+  left: 20px; /* Distance from the left of the page */
   padding: 8px 16px;
   background-color: #4CAF50;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  text-align: left;
 }
 
 button#addRowBtn:hover {

@@ -3,40 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Pending Tasks Viewer</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      text-align: left;
-    }
-
-    th {
-      background-color: #f0f0f0;
-    }
-
-    .due-soon {
-      background-color: #ffcccc;
-      animation: flash 1s infinite alternate;
-    }
-
-    @keyframes flash {
-      from { background-color: #ffcccc; }
-      to { background-color: #ffecec; }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h2>Pending Tasks (Due Within 7 Days)</h2>
+  <h2>Pending Tasks</h2>
   <table id="taskTable">
     <thead>
       <tr>

@@ -4,7 +4,66 @@
   <meta charset="UTF-8">
   <meta http-equiv="refresh" content="30">
   <title>Pending Tasks Viewer</title>
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #87CEEB; /* Sky blue */
+      color: #000;
+      font-weight: bold;
+    }
+
+    .due-soon-red {
+      background-color: #ffcccc;
+      animation: flash-red 3s infinite alternate;
+      color: #000; /* Text color when flashing red */
+    }
+
+    .due-soon-yellow {
+      background-color: #ffff99;
+      animation: flash-yellow 3s infinite alternate;
+      color: #000; /* Text color when flashing yellow */
+    }
+
+    @keyframes flash-red {
+      from {
+        background-color: white;
+      }
+      to {
+        background-color: #ff0000; /* Flash red */
+      }
+    }
+
+    @keyframes flash-yellow {
+      from {
+        background-color: white;
+      }
+      to {
+        background-color: #ffcc00; /* Flash yellow */
+      }
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #666;
+    }
+  </style>
 </head>
 <body>
   <h2>NOC Pending Tasks</h2>
@@ -58,8 +117,8 @@
               const tr = document.createElement("tr");
 
               // Apply flashing color based on days left
-              if (daysLeft >= 5 && daysLeft <= 7) {
-                tr.classList.add("due-soon-red"); // Red flash for 5-7 days
+              if (daysLeft >= 5) {
+                tr.classList.add("due-soon-red"); // Red flash for 5 or more days
               } else if (daysLeft >= 2 && daysLeft <= 4) {
                 tr.classList.add("due-soon-yellow"); // Yellow flash for 2-4 days
               }

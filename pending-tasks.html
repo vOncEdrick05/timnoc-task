@@ -4,66 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="refresh" content="30">
   <title>Pending Tasks Viewer</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background-color: #fff;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      text-align: left;
-    }
-
-    th {
-      background-color: #87CEEB; /* Sky blue */
-      color: #000;
-      font-weight: bold;
-    }
-
-    .due-soon-red {
-      background-color: #ffcccc;
-      animation: flash-red 3s infinite alternate;
-      color: #000; /* Text color when flashing red */
-    }
-
-    .due-soon-yellow {
-      background-color: #ffff99;
-      animation: flash-yellow 3s infinite alternate;
-      color: #000; /* Text color when flashing yellow */
-    }
-
-    @keyframes flash-red {
-      from {
-        background-color: white;
-      }
-      to {
-        background-color: #ff0000; /* Flash red */
-      }
-    }
-
-    @keyframes flash-yellow {
-      from {
-        background-color: white;
-      }
-      to {
-        background-color: #ffcc00; /* Flash yellow */
-      }
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 20px;
-      color: #666;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <h2>NOC Pending Tasks</h2>

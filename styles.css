@@ -41,8 +41,8 @@ th {
 }
 
 @keyframes flash-yellow {
-  from { background-color: #ffffcc; }
-  to { background-color: #ffff00; }
+  from { background-color: #ffffe0; }
+  to { background-color: #ffd700; }
 }
 
 footer {

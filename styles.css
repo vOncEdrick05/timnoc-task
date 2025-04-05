@@ -44,7 +44,18 @@ td {
 
 /* Flash from white to red slowly and smoothly */
 .due-soon {
-  animation: flash-red-white 2.5s infinite alternate ease-in-out;
+  animation: flash-red-white 3s infinite alternate ease-in-out;
+}
+
+@keyframes flash-red-white {
+  from {
+    background-color: #ffffff; /* Pure white */
+    color: #000;
+  }
+  to {
+    background-color: #e60000; /* Intense red */
+    color: #fff;
+  }
 }
 
 @keyframes flash-red-white {

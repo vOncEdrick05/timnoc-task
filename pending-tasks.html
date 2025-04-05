@@ -42,18 +42,20 @@
           tableBody.innerHTML = "";
 
           rows.forEach(row => {
-        const [ticket, title, dateRequested, pendingFrom] = row.split(",").map(x => x.trim());
-        const requestedDate = new Date(dateRequested);
-        const daysSinceRequested = Math.floor((today - requestedDate) / (1000 * 60 * 60 * 24));
-        const dueBy = new Date(requestedDate);
-        dueBy.setDate(dueBy.getDate() + 7);
+            const [ticket, title, dateRequested, pendingFrom] = row.split(",").map(x => x.trim());
+            const requestedDate = new Date(dateRequested);
+            const daysSinceRequested = Math.floor((today - requestedDate) / (1000 * 60 * 60 * 24));
+            const dueByDate = new Date(requestedDate);
+            dueByDate.setDate(dueByDate.getDate() + 7);
 
-        const tr = document.createElement("tr");
+            if (daysSinceRequested <= 7) {
+              const tr = document.createElement("tr");
 
-        // Flash red only if 5 or more days since requested
-        if (daysSinceRequested >= 5) {
-          tr.classList.add("due-red");
-        }
+              if (daysSinceRequested >= 4) {
+                tr.classList.add("due-soon-red");
+              } else if (daysSinceRequested === 3) {
+                tr.classList.add("due-soon-yellow");
+              }
 
               tr.innerHTML = `
                 <td>${ticket}</td>

@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h2>NOC Pending Tasks</h2>
+  <h2>Pending Tasks</h2>
   <table id="taskTable">
     <thead>
       <tr>
@@ -57,6 +57,25 @@
       .catch(error => {
         console.error("CSV fetch error:", error);
       });
+
+    // JavaScript for automatic text color adjustment based on background color
+    document.addEventListener("DOMContentLoaded", function () {
+      const tableRows = document.querySelectorAll("#taskTable tbody tr");
+
+      tableRows.forEach(row => {
+        const dueSoonCell = row.querySelector('.due-soon');
+        const backgroundColor = window.getComputedStyle(dueSoonCell).backgroundColor;
+
+        const redThreshold = 'rgb(255, 0, 0)';
+        const whiteThreshold = 'rgb(255, 255, 255)';
+        
+        if (backgroundColor === redThreshold) {
+          dueSoonCell.style.color = '#fff';  // White text on red background
+        } else if (backgroundColor === whiteThreshold) {
+          dueSoonCell.style.color = '#000';  // Black text on white background
+        }
+      });
+    });
   </script>
 </body>
 </html>

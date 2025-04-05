@@ -1,41 +1,43 @@
- body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      text-align: left;
-    }
-    th {
-      background-color: #f0f0f0;
-    }
-    .due-yellow {
-      animation: flashYellow 2s infinite alternate;
-    }
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #fff;
+}
 
-    .due-red {
-      animation: flashRed 2s infinite alternate;
-    }
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
-    @keyframes flashYellow {
-      from {
-        background-color: #ffffe0; /* Light yellow */
-      }
-      to {
-        background-color: #ffea00; /* Bright yellow */
-      }
-    }
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
 
-    @keyframes flashRed {
-      from {
-        background-color: #ffcccc; /* Light red */
-      }
-      to {
-        background-color: #ff0000; /* Intense red */
-      }
-    }
+th {
+  background-color: #87CEEB; /* Sky blue */
+  color: #000;
+  font-weight: bold;
+}
+
+.due-soon {
+  background-color: #ffcccc;
+  animation: flash 3s infinite alternate;
+  color: #000; /* Default text color */
+}
+
+@keyframes flash {
+  from {
+    background-color: white;
+  }
+  to {
+    background-color: #ff0000;
+  }
+}
+
+footer {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+}

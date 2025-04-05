@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manual Task Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h2>NOC Pending Tasks</h2>
+
+  <button id="addRowBtn">➕ Add Row</button>
+
+  <table id="taskTable">
+    <thead>
+      <tr>
+        <th>Ticket</th>
+        <th>Title</th>
+        <th>Date Requested</th>
+        <th>Pending From</th>
+        <th>Due By</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <footer>
+    <p>Task Tracker © 2024</p>
+  </footer>
+
+  <script>
+    function calculateDueBy(dateStr) {
+      const requestedDate = new Date(dateStr);
+      const dueBy = new Date(requestedDate);
+      dueBy.setDate(dueBy.getDate() + 7);
+      return dueBy.toLocaleDateString();
+    }
+
+    document.getElementById("addRowBtn").addEventListener("click", () => {
+      const tableBody = document.querySelector("#taskTable tbody");
+      const today = new Date().toISOString().split("T")[0];
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td contenteditable="true">New</td>
+        <td contenteditable="true">New Task</td>
+        <td contenteditable="true">${today}</td>
+        <td contenteditable="true">NOC</td>
+        <td class="due-by">${calculateDueBy(today)}</td>
+      `;
+      tableBody.appendChild(tr);
+      updateRowColors();
+    });
+
+    function updateRowColors() {
+      const rows = document.querySelectorAll("#taskTable tbody tr");
+      const today = new Date();
+      rows.forEach(row => {
+        row.classList.remove("due-soon-red", "due-soon-yellow");
+        const dateRequestedCell = row.cells[2];
+        const dateStr = dateRequestedCell.textContent.trim();
+        const requestedDate = new Date(dateStr);
+        const daysSinceRequested = Math.floor((today - requestedDate) / (1000 * 60 * 60 * 24));
+
+        // Recalculate due date
+        row.querySelector(".due-by").textContent = calculateDueBy(dateStr);
+
+        if (daysSinceRequested >= 4) {
+          row.classList.add("due-soon-red");
+        } else if (daysSinceRequested === 3) {
+          row.classList.add("due-soon-yellow");
+        }
+      });
+    }
+
+    setInterval(updateRowColors, 5000); // Keep checking and updating every 5 sec
+  </script>
+</body>
+</html>

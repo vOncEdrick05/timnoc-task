@@ -10,13 +10,14 @@ h2 {
 
 button#addRowBtn {
   display: block;
-  margin: 10px auto;
+  margin: 20px 0 10px 0; /* top, right, bottom, left */
   padding: 8px 16px;
   background-color: #4CAF50;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  text-align: left;
 }
 
 button#addRowBtn:hover {

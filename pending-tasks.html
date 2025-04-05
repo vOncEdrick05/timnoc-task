@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pending Tasks</title>
+  <link rel="stylesheet" type="text/css" href="https://github.com/vOncEdrick05/TIMNOC/raw/main/styles.css">
+</head>
+<body>
+
+  <h1>Pending Tasks</h1>
+
+  <table id="tasksTable">
+    <thead>
+      <tr>
+        <th>Ticket Number</th>
+        <th>Title</th>
+        <th>Date Requested</th>
+        <th>Due Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Table data will be populated here -->
+    </tbody>
+  </table>
+
+  <footer>
+    <p>Task Tracker © 2024</p>
+  </footer>
+
+  <script>
+    // Fetch CSV file from the provided GitHub link
+    const csvUrl = 'https://raw.githubusercontent.com/vOncEdrick05/TIMNOC/main/NOC%20Task.csv';
+
+    // Function to parse the CSV data
+    function parseCSV(csvData) {
+      const rows = csvData.split("\n").map(row => row.split(","));
+      return rows.slice(1); // Remove header row
+    }
+
+    // Function to populate the table with task data
+    function populateTable(tasks) {
+      const tableBody = document.querySelector("#tasksTable tbody");
+
+      tasks.forEach(task => {
+        const row = document.createElement("tr");
+        
+        const ticketNumber = task[0];
+        const title = task[1];
+        const dateRequested = task[2];
+        const dueDate = task[3];
+        const status = task[4];
+
+        row.innerHTML = `
+          <td>${ticketNumber}</td>
+          <td>${title}</td>
+          <td>${dateRequested}</td>
+          <td>${dueDate}</td>
+          <td class="${getStatusClass(status)}">${status}</td>
+        `;
+        
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Function to determine the class based on task status
+    function getStatusClass(status) {
+      if (status.toLowerCase() === 'pending') {
+        return 'pending';  // Assign "pending" class
+      } else if (status.toLowerCase() === 'due soon') {
+        return 'due-soon';  // Assign "due-soon" class
+      } else {
+        return ''; // Default class
+      }
+    }
+
+    // Fetch CSV data and populate the table
+    fetch(csvUrl)
+      .then(response => response.text())
+      .then(data => {
+        const tasks = parseCSV(data);
+        populateTable(tasks);
+      })
+      .catch(error => console.error('Error fetching CSV:', error));
+  </script>
+
+</body>
+</html>

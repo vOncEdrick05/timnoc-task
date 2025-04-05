@@ -2,7 +2,6 @@ body {
   font-family: Arial, sans-serif;
   padding: 20px;
   background-color: #fff;
-  position: relative; /* Allow absolute positioning inside the body */
 }
 
 h2 {
@@ -10,9 +9,8 @@ h2 {
 }
 
 button#addRowBtn {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
+  display: block;
+  margin: 20px 0 10px 0;
   padding: 8px 16px;
   background-color: #4CAF50;
   color: white;
@@ -48,18 +46,13 @@ th {
 }
 
 .due-soon-yellow {
-  animation: flash-yellow 1s infinite alternate;
+  background-color: #ffffcc;
   color: #000;
 }
 
 @keyframes flash-red {
   from { background-color: #fff5f5; }
   to { background-color: #ff0000; }
-}
-
-@keyframes flash-yellow {
-  from { background-color: #ffffe0; }
-  to { background-color: #ffd700; }
 }
 
 footer {

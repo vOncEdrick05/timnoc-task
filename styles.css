@@ -58,16 +58,6 @@ td {
   }
 }
 
-@keyframes flash-red-white {
-  from {
-    background-color: #ffffff;
-    color: #000;
-  }
-  to {
-    background-color: #cc0000;
-    color: #fff;
-  }
-}
 
 /* Footer */
 footer {
